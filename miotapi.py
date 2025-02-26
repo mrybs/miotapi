@@ -16,7 +16,8 @@ class MiotAPI:
         return '?' + '&'.join(args) if len(args) > 0 else ''
 
 
-    def __init__(self, host: str, protocol: str = 'https', prefix: str = '/api'):
+    def __init__(self, token: str, host: str, protocol: str = 'https', prefix: str = '/api'):
+        self.token = token
         self.host = host
         self.protocol = protocol
         self.prefix = prefix
