@@ -76,7 +76,6 @@ if roles is not None else None
     
     def search_users(self, query: str) -> list[AttributedDict]:
         return [
-             AttributedDict(user) 
              User(self, user) 
              for user in self.get(f'/search/users?query={urllib.parse.quote_plus(query)}')
         ]
