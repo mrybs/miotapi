@@ -32,7 +32,7 @@ class User:
 
 
 class MiotAPI:
-    VERSION = '0.1.0'
+    VERSION = '0.1.1'
 
     @staticmethod
     def dict_to_args(d):
@@ -80,11 +80,16 @@ if roles is not None else None
              for user in self.get(f'/search/users?query={urllib.parse.quote_plus(query)}')
         ]
          
+    def get_search_suggestions(self, query: str) -> list[str]:
+        return self.get(f'/search.suggestions?query={urllib.parse.quote_plus(query)}')['suggestions']
+         
 
 if __name__ == '__main__':
     api = MiotAPI('mrxx.ru')
     print(api.get_users(uuid='u/mrybs'))
     print()
+    print(api.get_search_suggests('чин'))
+    print
     print(api.search_users('чинчопа <3'))
     print()
     print(api.get_users(telegram_id=960063512)[0].uuid)
