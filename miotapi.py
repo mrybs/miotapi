@@ -88,7 +88,7 @@ if __name__ == '__main__':
     api = MiotAPI('mrxx.ru')
     print(api.get_users(uuid='u/mrybs'))
     print()
-    print(api.get_search_suggests('чин'))
+    print(api.get_search_suggestions('чин'))
     print
     print(api.search_users('чинчопа <3'))
     print()
