@@ -1,5 +1,8 @@
 import requests
 import urllib.parse
+import os.path
+import inspect
+import sys
 from datetime import datetime
 
 
@@ -28,7 +31,29 @@ class User:
                f'Telegram username: @{self.telegram_username}\n'\
                f'Registration date: {self.registration_date}\n'\
                f'Flags: {", ".join(self.flags)}\n'
-                
+
+
+class AssetsManager:
+    @staticmethod
+    def root():
+        return os.path.dirname(inspect.getfile(sys.modules[__name__]))
+    
+    @staticmethod
+    def assets_path():
+        return self.root() + '/assets'
+    
+    @staticmethod
+    def items_path():
+        return self.assets_path() + '/items'
+    
+    @staticmethod
+    def item_path(item_id):
+        items_path = self.items_path()
+        item_path = items_path + '/' + item_id
+        if os.path.isfile(item_path + '.webp'):
+            return item_path + '.webp'
+        if os.path.isfile(item_path + '.png'):
+            return item_path + '.png'
 
 
 class MiotAPI:
