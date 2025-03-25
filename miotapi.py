@@ -6,10 +6,11 @@ import sys
 from datetime import datetime
 
 
-class AttributedDict(dict):
+class AttributedDict(dict): 
     def __getattr__(self, item):
         return self[item]
-    
+
+
 class User:
     def __init__(self, api, data):
         self.api = api
@@ -35,20 +36,20 @@ class User:
 
 class AssetsManager:
     @staticmethod
-    def root():
+    def get_root_path():
         return os.path.dirname(inspect.getfile(sys.modules[__name__]))
     
     @staticmethod
-    def assets_path():
-        return self.root() + '/assets'
+    def get_assets_path():
+        return AssetsManager.get_root_path() + '/assets'
     
     @staticmethod
-    def items_path():
-        return self.assets_path() + '/items'
+    def get_items_path():
+        return AssetsManager.get_assets_path() + '/items'
     
     @staticmethod
-    def item_path(item_id):
-        items_path = self.items_path()
+    def get_item_path(item_id):
+        items_path = AssetsManager.get_items_path()
         item_path = items_path + '/' + item_id
         if os.path.isfile(item_path + '.webp'):
             return item_path + '.webp'
@@ -73,6 +74,13 @@ class MiotAPI:
         self.protocol = protocol
         self.prefix = prefix
         self.timeout = timeout
+    
+    def _status(self):
+        try:
+            res = self.get('/')
+            return res['status']
+        except Exception:
+            return 'offline'
     
     def get(self, meth, tries=3):
         try:
@@ -110,11 +118,14 @@ if roles is not None else None
          
 
 if __name__ == '__main__':
+    print(AssetsManager.items_path())
+    print(AssetsManager.item_path('miotbot'))
     api = MiotAPI('mrxx.ru')
+    print(api._status())
     print(api.get_users(uuid='u/mrybs'))
     print()
     print(api.get_search_suggestions('чин'))
-    print
+    print()
     print(api.search_users('чинчопа <3'))
     print()
     print(api.get_users(telegram_id=960063512)[0].uuid)
