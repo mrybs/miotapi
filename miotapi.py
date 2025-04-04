@@ -58,7 +58,7 @@ class AssetsManager:
 
 
 class MiotAPI:
-    VERSION = '0.1.1'
+    VERSION = '0.1.2'
 
     @staticmethod
     def dict_to_args(d):
@@ -69,7 +69,8 @@ class MiotAPI:
         return '?' + '&'.join(args) if len(args) > 0 else ''
 
 
-    def __init__(self, host: str, protocol: str = 'https', prefix: str = '/api', timeout=1):
+    def __init__(self, *, access_token: str = None, host: str = 'mrxx.ru', protocol: str = 'https', prefix: str = '/api', timeout=1):
+        self.access_token = access_token
         self.host = host
         self.protocol = protocol
         self.prefix = prefix
@@ -120,7 +121,7 @@ if roles is not None else None
 if __name__ == '__main__':
     print(AssetsManager.items_path())
     print(AssetsManager.item_path('miotbot'))
-    api = MiotAPI('mrxx.ru')
+    api = MiotAPI(access_token="your access token", host='mrxx.ru')
     print(api._status())
     print(api.get_users(uuid='u/mrybs'))
     print()
