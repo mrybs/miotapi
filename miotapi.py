@@ -58,7 +58,7 @@ class AssetsManager:
 
 
 class MiotAPI:
-    VERSION = '0.1.1'
+    VERSION = '0.1.2'
 
     @staticmethod
     def dict_to_args(d):
@@ -75,7 +75,7 @@ class MiotAPI:
         self.prefix = prefix
         self.timeout = timeout
     
-    def _status(self):
+    def status(self):
         try:
             res = self.get('/')
             return res['status']
@@ -91,7 +91,7 @@ class MiotAPI:
             raise e
 
     def get_users(self, uuid: str=None, telegram_id: int=None, telegram_username: str=None, name: str=None, flags: list[str]=None,
-                  registration_date: int=None, roles: list[str]=None) -> list[AttributedDict]:
+                  registration_date: str=None, roles: list[str]=None) -> list[AttributedDict]:
         args = self.dict_to_args({
              'uuid': uuid,
              'telegram_id': telegram_id,
@@ -121,7 +121,7 @@ if __name__ == '__main__':
     print(AssetsManager.items_path())
     print(AssetsManager.item_path('miotbot'))
     api = MiotAPI('mrxx.ru')
-    print(api._status())
+    print(api.status())
     print(api.get_users(uuid='u/mrybs'))
     print()
     print(api.get_search_suggestions('чин'))
