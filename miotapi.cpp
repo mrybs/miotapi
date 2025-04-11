@@ -44,6 +44,7 @@ namespace Miot{
     };
 
     class API{
+        const char* access_token;
         const char* host;
         const char* protocol;
         const char* prefix;
@@ -98,8 +99,8 @@ namespace Miot{
         }
 
     public:
-        API(const char* host, const char* protocol="https", const char* prefix="/api", const unsigned long timeout=1L)
-            :host(host), protocol(protocol), prefix(prefix), timeout(timeout){
+        API(const char* access_token="", const char* host="mrxx.ru", const char* protocol="https", const char* prefix="/api", const unsigned long timeout=1L)
+            :access_token(access_token), host(host), protocol(protocol), prefix(prefix), timeout(timeout){
                 curl_global_init(CURL_GLOBAL_DEFAULT);
                 curl = curl_easy_init();
                 if(!curl){

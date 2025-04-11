@@ -4,7 +4,7 @@
 main(){
     std::cout << "Using Miot version " << Miot::VERSION << "\n";
 
-    auto api = Miot::API("mrxx.ru", "https", "/api");
+    auto api = Miot::API("your access token");
 
     std::cout << "API accessibility status: " << api.status() << std::endl;
 
